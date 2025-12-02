@@ -4,6 +4,7 @@
 #include <QNetworkAccessManager>
 #include <QNetworkReply>
 #include <QFile>
+#include <QSslError>
 
 class QPushButton;
 class QLabel;
@@ -18,18 +19,20 @@ public:
     explicit MainWindow(QWidget *parent = nullptr);
 
 private:
-    QLineEdit    *m_urlEdit;        // поле для ввода URL
-    QPushButton  *m_downloadButton; // кнопка "Скачать"
-    QProgressBar *m_progress;       // прогресс-бар
-    QLabel       *m_statusLabel;    // статус
+    QLineEdit    *m_urlEdit;
+    QPushButton  *m_downloadButton;
+    QPushButton  *m_cancelButton;
+    QProgressBar *m_progress;
+    QLabel       *m_statusLabel;
 
-    QNetworkAccessManager m_networkManager; // менеджер HTTP-запросов
-    QNetworkReply        *m_reply = nullptr; // активный ответ
-    QFile                 m_outputFile;      // файл, в который пишем данные
+    QNetworkAccessManager m_networkManager;
+    QNetworkReply        *m_reply = nullptr;
+    QFile                 m_outputFile;
 
 private slots:
-    void onDownloadClicked();                       // нажата кнопка "Скачать"
-    void onDownloadProgress(qint64 received, qint64 total); // обновление прогресса
-    void onDownloadReadyRead();                     // пришли новые данные
-    void onDownloadFinished();                      // загрузка закончена
+    void onDownloadClicked();
+    void onDownloadProgress(qint64 received, qint64 total);
+    void onDownloadReadyRead();
+    void onDownloadFinished();
+    void onCancelClicked();
 };
